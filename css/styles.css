@@ -96,6 +96,10 @@ ul, ol {
   list-style: none;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 /* ===========================
    Typography
    =========================== */
@@ -624,6 +628,7 @@ main {
 
 .stats {
   padding: var(--space-3xl) 0;
+  background-color: var(--color-bg-alt);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
@@ -655,6 +660,55 @@ main {
   max-width: 160px;
 }
 
+.stats__trusted-title {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-text-light);
+  margin-top: var(--space-3xl);
+}
+
+/* Logo Ticker */
+
+.logo-ticker {
+  overflow: hidden;
+  margin-top: var(--space-lg);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.logo-ticker__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  width: max-content;
+  animation: ticker 30s linear infinite;
+}
+
+.logo-ticker__logo {
+  height: 70px;
+  width: auto;
+  opacity: 0.5;
+  flex-shrink: 0;
+  filter: grayscale(100%);
+  transition: opacity var(--transition-base), filter var(--transition-base);
+}
+
+.logo-ticker__logo:hover {
+  opacity: 0.8;
+  filter: grayscale(0%);
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* ===========================
    Services
    =========================== */
@@ -670,6 +724,15 @@ main {
 
 .services__title {
   color: var(--color-primary-dark);
+}
+
+.services__subtitle {
+  font-size: 1.0625rem;
+  color: var(--color-text-light);
+  margin-top: var(--space-md);
+  max-width: 520px;
+  margin-inline: auto;
+  line-height: 1.6;
 }
 
 .services__grid {
@@ -866,11 +929,19 @@ main {
 .faq__inner {
   display: grid;
   grid-template-columns: 0.8fr 1fr;
-  gap: var(--space-3xl);
+  grid-template-rows: auto 1fr;
+  gap: var(--space-sm) var(--space-3xl);
   align-items: start;
 }
 
 .faq__intro {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.faq__cta {
+  grid-column: 1;
+  grid-row: 2;
   position: sticky;
   top: calc(var(--header-height) + var(--space-2xl));
 }
@@ -906,6 +977,8 @@ main {
 
 /* FAQ Items */
 .faq__list {
+  grid-column: 2;
+  grid-row: 1 / -1;
   display: flex;
   flex-direction: column;
 }
@@ -1244,6 +1317,14 @@ main {
     min-width: 120px;
   }
 
+  .stats__trusted-title {
+    margin-top: var(--space-2xl);
+  }
+
+  .logo-ticker__logo {
+    height: 55px;
+  }
+
   .services {
     padding: var(--space-3xl) 0;
   }
@@ -1283,16 +1364,32 @@ main {
 
   .faq__inner {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: var(--space-2xl);
   }
 
   .faq__intro {
+    text-align: center;
+    grid-row: auto;
+    order: 1;
+  }
+
+  .faq__list {
+    grid-column: 1;
+    grid-row: auto;
+    order: 2;
+  }
+
+  .faq__cta {
     position: static;
     text-align: center;
+    grid-row: auto;
+    order: 3;
   }
 
   .faq__subtitle {
     max-width: 100%;
+    margin-bottom: var(--space-sm);
   }
 
   .why__cta {
