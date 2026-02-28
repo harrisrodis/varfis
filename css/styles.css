@@ -273,9 +273,22 @@ p {
   opacity: 0.8;
 }
 
+.header__cta {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width var(--transition-slow), opacity var(--transition-slow);
+}
+
+.header__cta--visible {
+  max-width: 220px;
+  opacity: 1;
+}
+
 .header__cta .btn {
   padding: 0.625rem 1.5rem;
   font-size: 0.875rem;
+  white-space: nowrap;
 }
 
 /* Mobile menu toggle */
@@ -533,6 +546,48 @@ main {
 .hero__visual {
   display: flex;
   justify-content: flex-end;
+  position: relative;
+}
+
+.hero__visual::before {
+  content: '';
+  position: absolute;
+  width: 340px;
+  height: 380px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-lg);
+  top: -25px;
+  right: 20px;
+  z-index: 0;
+  opacity: 0.3;
+  transform: rotate(3deg);
+  transition: transform var(--transition-slow);
+}
+
+.hero__visual::after {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+  bottom: -40px;
+  right: -35px;
+  z-index: 0;
+  opacity: 0.6;
+  transition: transform var(--transition-slow);
+}
+
+.hero__visual:hover::before {
+  transform: rotate(3deg) translate(8px, -8px);
+}
+
+.hero__visual:hover::after {
+  transform: translate(6px, 6px);
+}
+
+.hero__visual:hover .hero__deco {
+  transform: rotate(-4deg) translate(-8px, 6px);
 }
 
 .hero__image {
@@ -540,6 +595,22 @@ main {
   max-width: 420px;
   border-radius: var(--radius-lg);
   overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__deco {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background-color: var(--color-primary-dark);
+  border-radius: var(--radius-md);
+  top: 20%;
+  right: 80px;
+  z-index: 0;
+  opacity: 0.1;
+  transform: rotate(-4deg);
+  transition: transform var(--transition-slow);
 }
 
 .hero__image svg {
@@ -650,6 +721,20 @@ main {
   max-width: 800px;
 }
 
+.services__card-cta {
+  margin-top: var(--space-lg);
+}
+
+.services__card--wide .btn--outline {
+  border-color: rgba(243, 239, 232, 0.4);
+  color: var(--color-text-on-dark);
+}
+
+.services__card--wide .btn--outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 .services__card-title {
   font-family: var(--font-heading);
   font-size: 1.25rem;
@@ -668,6 +753,99 @@ main {
 .services__card-text {
   font-size: 0.9375rem;
   line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+/* ===========================
+   Testimonials
+   =========================== */
+
+.testimonials {
+  padding: var(--space-lg) 0 var(--space-4xl);
+}
+
+.testimonials__header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.testimonials__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+}
+
+.testimonials__subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.testimonials__card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.testimonials__card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+}
+
+.testimonials__card-title {
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+}
+
+.testimonials__stars {
+  font-size: 1.125rem;
+  color: #f4b942;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.testimonials__quote {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  font-style: italic;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.testimonials__author {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.testimonials__role {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.testimonials__company {
+  font-size: 0.8125rem;
   color: var(--color-text-light);
 }
 
@@ -988,7 +1166,7 @@ main {
    Responsive
    =========================== */
 
-@media (max-width: 768px) {
+@media (max-width: 832px) {
   .header__nav {
     display: none;
   }
@@ -1014,6 +1192,27 @@ main {
     justify-content: center;
   }
 
+  .hero__visual::before {
+    width: 200px;
+    height: 220px;
+    top: -12px;
+    right: calc(50% - 120px);
+  }
+
+  .hero__visual::after {
+    width: 120px;
+    height: 120px;
+    bottom: -25px;
+    right: calc(50% - 170px);
+  }
+
+  .hero__deco {
+    width: 220px;
+    height: 220px;
+    top: 15%;
+    right: calc(50% - 130px);
+  }
+
   .hero__image {
     max-width: 280px;
   }
@@ -1025,6 +1224,9 @@ main {
 
   .hero__actions .btn {
     justify-content: center;
+    max-width: 260px;
+    width: 100%;
+    margin-inline: auto;
   }
 
   .stats {
@@ -1052,6 +1254,30 @@ main {
   }
 
   .services__card {
+    padding: var(--space-xl);
+  }
+
+  .testimonials {
+    padding: var(--space-xl) 0 var(--space-3xl);
+  }
+
+  .testimonials__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--space-md);
+    padding-bottom: var(--space-md);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonials__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonials__card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
     padding: var(--space-xl);
   }
 
@@ -1120,8 +1346,32 @@ main {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 833px) and (max-width: 1024px) {
   .services__grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero__visual::before {
+    width: 260px;
+    height: 290px;
+    top: -18px;
+    right: 15px;
+  }
+
+  .hero__visual::after {
+    width: 120px;
+    height: 120px;
+    bottom: -25px;
+    right: -20px;
+  }
+
+  .hero__deco {
+    width: 280px;
+    height: 280px;
+    right: 40px;
+  }
+
+  .hero__image {
+    max-width: 320px;
   }
 }

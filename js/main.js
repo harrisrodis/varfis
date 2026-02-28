@@ -68,6 +68,20 @@
     }
   });
 
+  // --- Header CTA reveal on scroll past hero CTA ---
+  const heroActions = document.querySelector('.hero__actions');
+  const headerCta = document.querySelector('.header__cta');
+
+  if (heroActions && headerCta) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        headerCta.classList.toggle('header__cta--visible', !entry.isIntersecting);
+      });
+    }, { threshold: 0, rootMargin: '-72px 0px 0px 0px' });
+
+    heroObserver.observe(heroActions);
+  }
+
   // --- FAQ accordion ---
   document.querySelectorAll('.faq__question').forEach(btn => {
     btn.addEventListener('click', () => {
